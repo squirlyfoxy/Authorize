@@ -41,11 +41,51 @@ namespace Authorize.Core
             return false;
         }
 
+        public static bool CanReadProperty(Type type, PropertyInfo property)
+        {
+            foreach (var c in Manager.Classes)
+            {
+                if (c.ClassType == type)
+                {
+                    // Loop throught properties
+                    foreach (var p in c.GetProperties())
+                    {
+                        if (p == property)
+                        {
+                            return p.GetCustomAttribute<Property>().CanRead();
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
         public static bool CanWriteProperty<T>(PropertyInfo property)
         {
             foreach (var c in Manager.Classes)
             {
                 if (c.ClassType == typeof(T))
+                {
+                    // Loop throught properties
+                    foreach (var p in c.GetProperties())
+                    {
+                        if (p == property)
+                        {
+                            return p.GetCustomAttribute<Property>().CanWrite();
+                        }
+                    }
+                }
+            }
+
+            return false;
+        }
+
+        public static bool CanWriteProperty(Type classType, PropertyInfo property)
+        {
+            foreach (var c in Manager.Classes)
+            {
+                if (c.ClassType == classType)
                 {
                     // Loop throught properties
                     foreach (var p in c.GetProperties())
@@ -84,6 +124,29 @@ namespace Authorize.Core
             return null;
         }
 
+        public static dynamic Get(Type type, PropertyInfo property, object instance)
+        {
+            if (CanReadProperty(type, property))
+            {
+                foreach (var c in Manager.Classes)
+                {
+                    if (c.ClassType == type)
+                    {
+                        // Loop throught properties
+                        foreach (var p in c.GetProperties())
+                        {
+                            if (p == property)
+                            {
+                                return p.GetValue(instance);
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
         public static void Set<T>(PropertyInfo property, object instance, object value)
         {
             if (CanWriteProperty<T>(property))
@@ -91,6 +154,27 @@ namespace Authorize.Core
                 foreach (var c in Manager.Classes)
                 {
                     if (c.ClassType == typeof(T))
+                    {
+                        // Loop throught properties
+                        foreach (var p in c.GetProperties())
+                        {
+                            if (p == property)
+                            {
+                                p.SetValue(instance, value);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Set(Type classType, PropertyInfo property, object instance, object value)
+        {
+            if (CanWriteProperty(classType, property))
+            {
+                foreach (var c in Manager.Classes)
+                {
+                    if (c.ClassType == classType)
                     {
                         // Loop throught properties
                         foreach (var p in c.GetProperties())

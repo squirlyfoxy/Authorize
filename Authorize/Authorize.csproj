@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\Class.cs" />
+    <Compile Include="Core\H\IPermitClass.cs" />
+    <Compile Include="Core\H\Permitter.cs" />
     <Compile Include="Core\Linq\Linq.cs" />
     <Compile Include="Core\Linq\LinqPermissionQueryRule.cs" />
     <Compile Include="Core\Property.cs" />

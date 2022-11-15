@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Authorize;
+using Authorize.Core.H;
 
 namespace Test
 {
@@ -47,15 +48,17 @@ namespace Test
             l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadAdvanced, x => x != "Hello"));
             l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadBasic, x => x != "World"));
 
-            Console.WriteLine(Authorize.Core.Class.CanReadProperty<User>(typeof(User).GetProperties().Where(p => p.Name == "Surname").ToList()[0]));
-            Console.WriteLine(Authorize.Core.Class.CanWriteProperty<User>(typeof(User).GetProperties().Where(p => p.Name == "Surname").ToList()[0]));
-            Console.WriteLine((string)Authorize.Core.Class.Get<User>(typeof(User).GetProperties().Where(p => p.Name == "Name").ToList()[0], currentUser));
-            Authorize.Core.Class.Set<User>(typeof(User).GetProperties().Where(p => p.Name == "Name").ToList()[0], currentUser, "Cioa");
-            Console.WriteLine((string)Authorize.Core.Class.Get<User>(typeof(User).GetProperties().Where(p => p.Name == "Name").ToList()[0], currentUser));
-
             foreach (var item in Authorize.Core.Class.Query<User>(l, typeof(User).GetProperties().Where(p => p.Name == "Friends").ToList()[0], currentUser.Friends))
             {
                 Console.WriteLine("               " + (string)item);
+            }
+
+            using (var perm = Permitter.Instance<User>(currentUser))
+            {
+                Console.WriteLine((string)perm.Get("Name"));
+                Console.WriteLine((string)perm.Get("Surname"));
+                perm.Set("Name", "Alessandro");
+                Console.WriteLine((string)perm.Get("Name"));
             }
 
             Console.ReadKey();

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 
 using Authorize.Core;
+using Authorize.Core.H;
 
 namespace Test
 {
-    public class User
+    public class User : IPermitClass
     {
         [Property((int)PermissionRead.ReadBasic, (int)PermissionWrite.WriteAdvanced, "Nna")]
         public string Name { get; set; }
