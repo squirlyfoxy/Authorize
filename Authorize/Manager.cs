@@ -32,9 +32,14 @@ namespace Authorize
             UserType = userClass;
             PermissionProperty = permissionProperty;
 
-            if (userClass.IsClass)
+            RegisterClass(userClass);
+        }
+
+        public static void RegisterClass(Type classType)
+        {
+            if (classType.IsClass)
             {
-                Classes.Add(new Class(userClass));
+                Classes.Add(new Class(classType));
             }
         }
 

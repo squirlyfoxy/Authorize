@@ -39,9 +39,17 @@ namespace Test
                         Read = PermissionRead.ReadAdvanced,
                         Write = PermissionWrite.WriteAdvanced
                     },
+                    new Permission()
+                    {
+                        PermissionCode = "City",
+
+                        Read = PermissionRead.ReadAdvanced,
+                        Write = PermissionWrite.WriteBasic
+                    }
                 },
                 Friends = new[] {"Andrea", "Luigi" }
             };
+            Manager.RegisterClass(typeof(City));
             Manager.RegisterCurrentUser(currentUser);
 
             var l = new Authorize.Core.Linq.Linq();
@@ -58,6 +66,41 @@ namespace Test
                 foreach (var item in perm.Where("Friends", l, currentUser.Friends))
                 {
                     Console.WriteLine("Friend: " + (string)item);
+                }
+            }
+
+            var cesena = new City()
+            {
+                Name = "Cesena",
+                Country = "IT",
+                UsersThatLiveHere = new User[]
+                {
+                    currentUser,
+                    new User()
+                    {
+                        Name = "Andrea",
+                        Surname = "Adreoni"
+                    },
+                    new User()
+                    {
+                        Name = "Federico",
+                        Surname = "Armanni"
+                    },
+                }
+            };
+
+            Console.WriteLine(" -- City -- ");
+
+            var cityL = new Authorize.Core.Linq.Linq();
+            cityL.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadAdvanced, x => x.Name != currentUser.Name));
+            cityL.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadBasic, x => x.Name == currentUser.Name));
+            using (var perm = Permitter.Instance(cesena))
+            {
+                Console.WriteLine("Name: " + (string)perm.Get("Name"));
+
+                foreach (var item in perm.Where("UsersThatLiveHere", cityL, cesena.UsersThatLiveHere))
+                {
+                    Console.WriteLine("User: " + (item as User).Name);
                 }
             }
 
