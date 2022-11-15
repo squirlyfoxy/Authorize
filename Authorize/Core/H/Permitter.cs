@@ -37,6 +37,13 @@ namespace Authorize.Core.H
             Class.Set(ClassType, property, PermitClass, value);
         }
 
+        public object[] Where(string propertyName, Linq.Linq linq, object[] instance)
+        {
+            var property = ClassType.GetProperties().FirstOrDefault(p => p.Name == propertyName);
+
+            return Class.Query(ClassType, linq, property, instance);
+        }
+
         public static Permitter Instance<T>(T instance) where T : IPermitClass
         {
             var type = typeof(T);

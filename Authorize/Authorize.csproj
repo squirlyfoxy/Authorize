@@ -46,6 +46,7 @@
     <Compile Include="Core\H\Permitter.cs" />
     <Compile Include="Core\Linq\Linq.cs" />
     <Compile Include="Core\Linq\LinqPermissionQueryRule.cs" />
+    <Compile Include="Core\Linq\LinqProperty.cs" />
     <Compile Include="Core\Property.cs" />
     <Compile Include="Manager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

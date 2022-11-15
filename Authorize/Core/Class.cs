@@ -202,7 +202,36 @@ namespace Authorize.Core
                         {
                             if (p == property)
                             {
-                                return Manager.ExecuteLinq(p.GetCustomAttribute<Property>().MinimumGetPermission, p.GetCustomAttribute<Property>().PermissionCode, instance, linq.WhereQueries.Where(w => w.Permission == p.GetCustomAttribute<Property>().MinimumGetPermission).OrderBy(k => k.Permission).First());
+                                if (p.GetCustomAttribute<Linq.LinqProperty>().GetType() == Linq.LinqProperty.Base().GetType())
+                                {
+                                    return Manager.ExecuteLinq(p.GetCustomAttribute<Property>().MinimumGetPermission, p.GetCustomAttribute<Property>().PermissionCode, instance, linq.WhereQueries.Where(w => w.Permission == p.GetCustomAttribute<Property>().MinimumGetPermission).OrderBy(k => k.Permission).First());
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+            return null;
+        }
+
+        public static object[] Query(Type classType, Authorize.Core.Linq.Linq linq, PropertyInfo property, object[] instance)
+        {
+            if (CanReadProperty(classType, property))
+            {
+                foreach (var c in Manager.Classes)
+                {
+                    if (c.ClassType == classType)
+                    {
+                        // Loop throught properties
+                        foreach (var p in c.GetProperties())
+                        {
+                            if (p == property)
+                            {
+                                if (p.GetCustomAttribute<Linq.LinqProperty>().GetType() == Linq.LinqProperty.Base().GetType())
+                                {
+                                    return Manager.ExecuteLinq(p.GetCustomAttribute<Property>().MinimumGetPermission, p.GetCustomAttribute<Property>().PermissionCode, instance, linq.WhereQueries.Where(w => w.Permission == p.GetCustomAttribute<Property>().MinimumGetPermission).OrderBy(k => k.Permission).First());
+                                }
                             }
                         }
                     }

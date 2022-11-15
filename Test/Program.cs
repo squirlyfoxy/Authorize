@@ -40,18 +40,13 @@ namespace Test
                         Write = PermissionWrite.WriteAdvanced
                     },
                 },
-                Friends = new[] {"Hello", "World" }
+                Friends = new[] {"Andrea", "Luigi" }
             };
             Manager.RegisterCurrentUser(currentUser);
 
             var l = new Authorize.Core.Linq.Linq();
-            l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadAdvanced, x => x != "Hello"));
-            l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadBasic, x => x != "World"));
-
-            foreach (var item in Authorize.Core.Class.Query<User>(l, typeof(User).GetProperties().Where(p => p.Name == "Friends").ToList()[0], currentUser.Friends))
-            {
-                Console.WriteLine("               " + (string)item);
-            }
+            l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadAdvanced, x => x != "Andrea"));
+            l.WhereQueries.Add(new Authorize.Core.Linq.LinqPermissionQueryRule((int)PermissionRead.ReadBasic, x => x != "Luigi"));
 
             using (var perm = Permitter.Instance<User>(currentUser))
             {
@@ -59,6 +54,11 @@ namespace Test
                 Console.WriteLine((string)perm.Get("Surname"));
                 perm.Set("Name", "Alessandro");
                 Console.WriteLine((string)perm.Get("Name"));
+
+                foreach (var item in perm.Where("Friends", l, currentUser.Friends))
+                {
+                    Console.WriteLine("Friend: " + (string)item);
+                }
             }
 
             Console.ReadKey();

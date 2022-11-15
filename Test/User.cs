@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Authorize.Core;
 using Authorize.Core.H;
+using Authorize.Core.Linq;
 
 namespace Test
 {
@@ -18,6 +19,7 @@ namespace Test
         public string Surname { get; set; }
 
         [Property((int)PermissionRead.ReadBasic, (int)PermissionWrite.WriteAdvanced, "Nna")]
+        [LinqProperty]
         public string[] Friends { get; set; }
 
         public Permission[] Permissions { get; set; }
