@@ -1,0 +1,6 @@
+C:\Work\Tampieri\Authorize\Authorize\bin\Debug\Authorize.dll
+C:\Work\Tampieri\Authorize\Authorize\bin\Debug\Authorize.pdb
+C:\Work\Tampieri\Authorize\Authorize\obj\Debug\Authorize.csproj.AssemblyReference.cache
+C:\Work\Tampieri\Authorize\Authorize\obj\Debug\Authorize.csproj.CoreCompileInputs.cache
+C:\Work\Tampieri\Authorize\Authorize\obj\Debug\Authorize.dll
+C:\Work\Tampieri\Authorize\Authorize\obj\Debug\Authorize.pdb
