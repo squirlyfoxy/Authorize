@@ -1,12 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 
 namespace Authorize.Core.H
 {
     public interface IPermitClass
     {
+        /// <summary>
+        /// Custom method that allows to specify a custom rule to access the class.
+        /// </summary>
+        /// <returns>True: can access, False: can't access. If NotImplementedException the method is not considered.</returns>
+        bool CanAccessCustom(PropertyInfo target);
     }
 }

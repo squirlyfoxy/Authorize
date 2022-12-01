@@ -60,5 +60,6 @@
   <ItemGroup>
     <None Include="authorize_key_sign.pfx" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
