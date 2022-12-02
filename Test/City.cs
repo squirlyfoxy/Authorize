@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 using Authorize.Core;
 using Authorize.Core.H;
@@ -21,5 +18,15 @@ namespace Test
         [Property((int)PermissionRead.ReadBasic, (int)PermissionWrite.WriteAdvanced, "City")]
         [LinqProperty]
         public User[] UsersThatLiveHere { get; set; }
+
+        public bool CanAccessCustom(PropertyInfo target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanWriteCustom(PropertyInfo target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

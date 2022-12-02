@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Reflection;
 
 using Authorize.Core;
 using Authorize.Core.H;
@@ -23,5 +20,15 @@ namespace Test
         public string[] Friends { get; set; }
 
         public Permission[] Permissions { get; set; }
+
+        public bool CanAccessCustom(PropertyInfo target)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool CanWriteCustom(PropertyInfo target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

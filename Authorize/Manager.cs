@@ -51,6 +51,11 @@ namespace Authorize
             }
         }
 
+        public static bool ClassRegistered(Type classType)
+        {
+            return Classes.Any(c => c.ClassType == classType);
+        }
+
         public static void RegisterPermissionClass(Type permissionClass, PropertyInfo minimumProperty, PropertyInfo maximumProperty, PropertyInfo permissionCodeProperrty)
         {
             if (!UserType.GetProperties().Any(x => x.PropertyType == permissionClass))
