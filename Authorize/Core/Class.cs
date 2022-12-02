@@ -107,6 +107,25 @@ namespace Authorize.Core
             {
                 if (c.ClassType == typeof(T))
                 {
+                    try
+                    {
+                        var typeInstance = Activator.CreateInstance(typeof(T));
+
+                        if (typeInstance is H.IPermitClass)
+                        {
+                            var permitClass = (H.IPermitClass)typeInstance;
+                            return permitClass.CanWriteCustom(property);
+                        }
+                    }
+                    catch (NotImplementedException)
+                    {
+                        // CanWriteProperty not implemented, let's try with properties
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("WARNING [Authorize]: " + ex.Message);
+                    }
+
                     // Loop throught properties
                     foreach (var p in c.GetProperties())
                     {
@@ -127,6 +146,25 @@ namespace Authorize.Core
             {
                 if (c.ClassType == classType)
                 {
+                    try
+                    {
+                        var typeInstance = Activator.CreateInstance(classType);
+
+                        if (typeInstance is H.IPermitClass)
+                        {
+                            var permitClass = (H.IPermitClass)typeInstance;
+                            return permitClass.CanWriteCustom(property);
+                        }
+                    }
+                    catch (NotImplementedException)
+                    {
+                        // CanWriteProperty not implemented, let's try with properties
+                    }
+                    catch (Exception ex)
+                    {
+                        Debug.WriteLine("WARNING [Authorize]: " + ex.Message);
+                    }
+
                     // Loop throught properties
                     foreach (var p in c.GetProperties())
                     {

@@ -23,5 +23,10 @@ namespace Test
         {
             throw new NotImplementedException();
         }
+
+        public bool CanWriteCustom(PropertyInfo target)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
