@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Authorize</RootNamespace>
     <AssemblyName>Authorize</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworks>net48;net472</TargetFrameworks>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -35,6 +35,13 @@
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>authorize_key_sign.pfx</AssemblyOriginatorKeyFile>
+    <RepositoryUrl>https://github.com/squirlyfoxy/Authorize</RepositoryUrl>
+    <Authors>squirlyfoxy</Authors>
+    <Description>A role based authentication library for .NET</Description>
+    <Version>1.0.1.1</Version>
+    <Title>Authorize</Title>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -58,6 +65,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
     <None Include="authorize_key_sign.pfx" />
   </ItemGroup>
   <ItemGroup />
